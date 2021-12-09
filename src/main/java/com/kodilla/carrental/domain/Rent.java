@@ -27,7 +27,7 @@ public class Rent {
 
     @OneToMany(
             targetEntity = Equipment.class,
-            mappedBy = "equipment",
+//            mappedBy = "equipment",
             fetch = FetchType.EAGER
     )
     private List<Equipment> equipmentList;
@@ -36,7 +36,7 @@ public class Rent {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 

@@ -31,8 +31,7 @@ public class Client {
     private String contactNumber;
 
     @OneToMany(
-            targetEntity = Rent.class,
-            mappedBy = "rents",
+            //mappedBy = "rents",
             fetch = FetchType.EAGER)
-    private List<Rent> rents;
+    private List<Rent> getRents;
 }
