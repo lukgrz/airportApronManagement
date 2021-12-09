@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity(name = "Invoices")
 @NoArgsConstructor
@@ -19,6 +16,8 @@ public class Invoice {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(targetEntity = Rent.class)
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.PERSIST)
     private Rent rent;
 }

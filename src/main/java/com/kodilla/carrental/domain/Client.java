@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.atmosphere.config.service.Get;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -32,6 +30,9 @@ public class Client {
 
     private String contactNumber;
 
-    @OneToMany
+    @OneToMany(
+            targetEntity = Rent.class,
+            mappedBy = "rents",
+            fetch = FetchType.EAGER)
     private List<Rent> rents;
 }

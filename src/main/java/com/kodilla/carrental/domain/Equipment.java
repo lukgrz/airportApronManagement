@@ -1,11 +1,9 @@
 package com.kodilla.carrental.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity(name = "equipements")
+@Entity
 public class Equipment {
 
     @Id
@@ -17,4 +15,10 @@ public class Equipment {
     private String description;
 
     private BigDecimal pricePerDay;
+
+    private boolean isAvailable;
+
+    @ManyToOne
+    @JoinColumn(name = "rent_id")
+    private Rent rent;
 }

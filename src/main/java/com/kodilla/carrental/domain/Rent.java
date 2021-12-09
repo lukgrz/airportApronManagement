@@ -25,13 +25,19 @@ public class Rent {
 
     private Date returnDate;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(
+            targetEntity = Equipment.class,
+            mappedBy = "equipment",
+            fetch = FetchType.EAGER
+    )
     private List<Equipment> equipmentList;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
     private Client client;
 
     private BigDecimal totalPrice;
