@@ -33,5 +33,5 @@ public class Client {
     @OneToMany(
             //mappedBy = "rents",
             fetch = FetchType.EAGER)
-    private List<Rent> getRents;
+    private List<Rent> Rents;
 }
