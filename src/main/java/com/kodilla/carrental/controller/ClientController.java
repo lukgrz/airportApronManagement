@@ -25,9 +25,9 @@ public class ClientController {
         return clientMapper.mapToClientDtoList(clients);
     }
 
-    @GetMapping(value = "/clients/{clientId}")
-    public ClientDto getClient(@RequestParam Long clientId) {
-        Client client = clientService.getClient(clientId).get();
+    @GetMapping(value = "/clients/{id}")
+    public ClientDto getClient(@RequestParam Long id) {
+        Client client = clientService.getClient(id).get();
         return clientMapper.mapToClientDto(client);
     }
 
@@ -37,14 +37,20 @@ public class ClientController {
         clientService.saveClient(client);
     }
 
-    @PutMapping(value = "/clients")
+    @PutMapping(value = "/clients", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateClient(@RequestBody ClientDto clientDto) {
         Client client = clientMapper.mapToClient(clientDto);
         clientService.saveClient(client);
     }
 
-    @DeleteMapping(value = "/clients/{clientId}")
-    public void deleteClient(@RequestParam Long clientId) {
-        clientService.deleteClient(clientId);
+    @DeleteMapping(value = "/clients/{id}")
+    public void deleteClient(@RequestParam Long id) {
+        clientService.deleteClient(id);
+    }
+
+    @GetMapping(value = "/clients/{id}/rents")
+    public List<RentDto> getAllClientRents (@RequestParam Long id) {
+        ClientDto client = clientMapper.mapToClientDto(clientService.getClient(id).get());
+        return client.getRents();
     }
 }
