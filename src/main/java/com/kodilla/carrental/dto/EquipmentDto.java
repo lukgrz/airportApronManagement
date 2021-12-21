@@ -3,11 +3,6 @@ package com.kodilla.carrental.dto;
 import com.kodilla.carrental.domain.Rent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Getter

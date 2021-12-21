@@ -23,10 +23,11 @@ public class ClientMapper {
     public Client mapToClient (ClientDto clientDto) {
         Client client = new Client(clientDto.getId(), clientDto.getFirstName(), clientDto.getLastName(), clientDto.getAddress(),
                 clientDto.getEmail(), clientDto.getContactNumber(), rentMapper.mapToRentList(clientDto.getRents()));
+        return client;
     }
 
     public List<ClientDto> mapToClientDtoList (List<Client> clients) {
-        clients.stream()
+        return clients.stream()
                 .map(this::mapToClientDto)
                 .collect(Collectors.toList());
     }

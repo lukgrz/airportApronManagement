@@ -2,10 +2,10 @@ package com.kodilla.carrental.controller;
 
 import com.kodilla.carrental.domain.Client;
 import com.kodilla.carrental.dto.ClientDto;
+import com.kodilla.carrental.dto.RentDto;
 import com.kodilla.carrental.mapper.ClientMapper;
 import com.kodilla.carrental.service.ClientService;
 import lombok.RequiredArgsConstructor;
-import org.atmosphere.config.service.Get;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
