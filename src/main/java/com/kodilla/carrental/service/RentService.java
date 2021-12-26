@@ -39,7 +39,7 @@ public class RentService {
         return rent;
     }
 
-    public Rent removeEquipmentFromREnt(final Rent rent, final Long equipmentId) {
+    public Rent removeEquipmentFromRent(final Rent rent, final Long equipmentId) {
         Equipment equipment = equipmentService.getEquipment(equipmentId).get();
         rent.getEquipmentList().remove(equipment);
         rentDao.save(rent);
