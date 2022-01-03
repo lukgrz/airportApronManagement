@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class Rent {
 
     @OneToMany(
             targetEntity = Equipment.class,
-//            mappedBy = "equipment",
             fetch = FetchType.EAGER
     )
     private List<Equipment> equipmentList;
@@ -40,7 +38,55 @@ public class Rent {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    private BigDecimal totalPrice;
+    @OneToOne
+    private Price totalPrice;
 
-    private Currency currency;
+    public static class RentBuilder {
+        private Long id;
+        private Date rentDate;
+        private Date returnDate;
+        private List<Equipment> equipmentList;
+        private Car car;
+        private Client client;
+        private Price totalPrice;
+
+        public RentBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public RentBuilder rentDate(Date rentDate) {
+            this.rentDate = rentDate;
+            return this;
+        }
+
+        public RentBuilder returnDate(Date returnDate) {
+            this.returnDate = returnDate;
+            return this;
+        }
+
+        public RentBuilder equipment(Equipment equipment) {
+            equipmentList.add(equipment);
+            return this;
+        }
+
+        public RentBuilder car(Car car) {
+            this.car = car;
+            return this;
+        }
+
+        public RentBuilder client(Client client) {
+            this.client = client;
+            return this;
+        }
+
+        public RentBuilder totalPrice(Price totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public Rent build() {
+            return new Rent(id,rentDate,returnDate,equipmentList,car,client,totalPrice);
+        }
+    }
 }

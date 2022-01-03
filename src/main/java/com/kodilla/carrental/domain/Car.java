@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity(name = "cars")
 @NoArgsConstructor
@@ -33,9 +32,9 @@ public class Car {
 
     private Gearbox gearbox;
 
-    private BigDecimal startingPrice;
+    @OneToOne
+    private Price startingPrice;
 
-    private BigDecimal pricePerDay;
-
-    private boolean isAvailable;
+    @OneToOne
+    private Price pricePerDay;
 }

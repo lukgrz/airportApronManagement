@@ -21,7 +21,8 @@ public class Equipment {
 
     private String description;
 
-    private BigDecimal pricePerDay;
+    @OneToOne
+    private Price pricePerDay;
 
     private boolean isAvailable;
 

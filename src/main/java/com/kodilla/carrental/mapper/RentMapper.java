@@ -12,13 +12,13 @@ public class RentMapper {
 
     public RentDto mapToRentDto (Rent rent) {
         RentDto rentDto = new RentDto(rent.getId(), rent.getRentDate(), rent.getReturnDate(), rent.getEquipmentList(),
-                rent.getCar(), rent.getClient(), rent.getTotalPrice(), rent.getCurrency());
+                rent.getCar(), rent.getClient(), rent.getTotalPrice());
         return  rentDto;
     }
 
     public Rent mapToRent (RentDto rentDto) {
         Rent rent = new Rent(rentDto.getId(), rentDto.getRentDate(), rentDto.getReturnDate(), rentDto.getEquipmentList(),
-                rentDto.getCar(), rentDto.getClient(), rentDto.getTotalPrice(), rentDto.getCurrency());
+                rentDto.getCar(), rentDto.getClient(), rentDto.getTotalPrice());
         return rent;
     }
 
