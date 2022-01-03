@@ -1,6 +1,8 @@
 package com.kodilla.carrental.service;
 
 import com.kodilla.carrental.domain.Equipment;
+import com.kodilla.carrental.domain.Price;
+import com.kodilla.carrental.domain.Rate;
 import com.kodilla.carrental.domain.Rent;
 import com.kodilla.carrental.repository.RentDao;
 import lombok.AllArgsConstructor;

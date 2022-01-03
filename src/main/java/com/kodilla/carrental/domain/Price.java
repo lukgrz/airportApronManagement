@@ -20,7 +20,7 @@ public class Price {
     private Currency currency = Currency.PLN;
     private BigDecimal priceInPln;
     private BigDecimal priceInCurrency;
-    private LocalDate LocalDate;
+    private LocalDate localDate;
 
     private Price(BigDecimal priceInPln) {
         this.priceInPln = priceInPln;

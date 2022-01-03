@@ -14,4 +14,6 @@ public class RateService {
     public Rate fetchRates() {
         return rateClient.getRates();
     }
+
+
 }
