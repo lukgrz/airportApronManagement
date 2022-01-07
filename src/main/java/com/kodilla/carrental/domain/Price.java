@@ -22,11 +22,11 @@ public class Price {
     private BigDecimal priceInCurrency;
     private LocalDate localDate;
 
-    private Price(BigDecimal priceInPln) {
+    public Price(BigDecimal priceInPln) {
         this.priceInPln = priceInPln;
     }
 
-    public void setPriceInCurrency(Rate rate) {
+    public void calculatePriceInCurrency(Rate rate) {
         switch (currency) {
             case EUR:
                 priceInCurrency = priceInPln.multiply(BigDecimal.valueOf(rate.getPln_Eur()));

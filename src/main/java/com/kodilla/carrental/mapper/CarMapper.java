@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 public class CarMapper {
 
     public Car mapToCar(CarDto carDto) {
-        Car car = new Car(carDto.getId(),carDto.getBrand(), carDto.getModel(), carDto.getRegistration(),
+        Car car = new Car(carDto.getId(), carDto.getBrand(), carDto.getModel(), carDto.getRegistration(),
                 carDto.getEngineCapacity(), carDto.getSeatsNumber(), carDto.getDoorsNumber(), carDto.getGearbox(),
-                carDto.getStartingPrice(),carDto.getPricePerDay());
+                carDto.getStartingPrice(), carDto.getPricePerDay());
         return car;
     }
 
@@ -24,13 +24,7 @@ public class CarMapper {
         return carDto;
     }
 
-    public List<Car> mapToCarList (List<CarDto> carDtos) {
-        return carDtos.stream()
-                .map(this::mapToCar)
-                .collect(Collectors.toList());
-    }
-
-    public List<CarDto> mapToCarDtoList (List<Car> cars) {
+    public List<CarDto> mapToCarDtoList(List<Car> cars) {
         return cars.stream()
                 .map(this::mapToCarDto)
                 .collect(Collectors.toList());
