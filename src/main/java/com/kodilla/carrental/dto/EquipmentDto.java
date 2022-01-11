@@ -13,6 +13,4 @@ public class EquipmentDto {
     private String name;
     private String description;
     private Price pricePerDay;
-    private boolean isAvailable;
-    private Rent rent;
 }

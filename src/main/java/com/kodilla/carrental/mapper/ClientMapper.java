@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class ClientMapper {
 
     @Autowired
-    RentMapper rentMapper;
+    private RentMapper rentMapper;
 
     public ClientDto mapToClientDto (Client client) {
         ClientDto clientDto = new ClientDto(client.getId(), client.getFirstName(), client.getLastName(), client.getAddress(),

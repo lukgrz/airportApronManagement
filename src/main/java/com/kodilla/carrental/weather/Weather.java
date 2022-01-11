@@ -29,4 +29,9 @@ public class Weather {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonProperty("current_weather")
     public CurrentWeather currentWeather;
+
+    @Override
+    public String toString() {
+        return "Weather in Katowice" + currentWeather;
+    }
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -16,17 +15,8 @@ public class Equipment {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
-
     private String description;
-
     @OneToOne
     private Price pricePerDay;
-
-    private boolean isAvailable;
-
-    @ManyToOne
-    @JoinColumn(name = "rent_id")
-    private Rent rent;
 }

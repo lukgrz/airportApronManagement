@@ -29,4 +29,13 @@ public class CurrentWeather {
     public String time;
     @JsonProperty("windspeed")
     public double windSpeed;
+
+    @Override
+    public String toString() {
+        return "CurrentWeather{" +
+                "windDirection=" + windDirection +
+                ", temperature=" + temperature +
+                ", windSpeed=" + windSpeed +
+                '}';
+    }
 }

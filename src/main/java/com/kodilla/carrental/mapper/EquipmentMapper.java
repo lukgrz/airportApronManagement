@@ -12,13 +12,13 @@ public class EquipmentMapper {
 
     public EquipmentDto mapToEquipmentDto(Equipment equipment) {
         EquipmentDto equipmentDto= new EquipmentDto(equipment.getId(), equipment.getName(), equipment.getDescription(),
-                equipment.getPricePerDay(), equipment.isAvailable(), equipment.getRent());
+                equipment.getPricePerDay());
         return equipmentDto;
     }
 
     public Equipment mapToEquipment(EquipmentDto equipmentDto) {
         Equipment equipment = new Equipment(equipmentDto.getId(), equipmentDto.getName(), equipmentDto.getDescription(),
-                equipmentDto.getPricePerDay(), equipmentDto.isAvailable(), equipmentDto.getRent());
+                equipmentDto.getPricePerDay());
         return equipment;
     }
 
