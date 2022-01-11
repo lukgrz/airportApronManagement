@@ -43,7 +43,7 @@ public class Rent {
     private Price totalPrice;
 
     public long numberOfDaysForRent() {
-        return DAYS.between(rentDate, returnDate);
+        return DAYS.between(rentDate, returnDate) + 1;
     }
 
     private BigDecimal calculateTotalPriceForCar() {
@@ -54,7 +54,7 @@ public class Rent {
 
     private BigDecimal calculateTotalPriceForEquipment() {
         return equipmentList.stream()
-                .map(equipment -> equipment.getPricePerDay().getPriceInPln())
+                .map(equipment -> equipment.getPricePerDay().getPriceInPln().multiply(BigDecimal.valueOf(numberOfDaysForRent())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     }

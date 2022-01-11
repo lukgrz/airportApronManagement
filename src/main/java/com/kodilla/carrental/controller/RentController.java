@@ -19,8 +19,8 @@ public class RentController {
     private final RentMapper rentMapper;
 
     @GetMapping(value = "/rents/{id}")
-    public RentDto getRent(@RequestParam Long id) {
-        Rent rent = rentService.getRent(id).get();
+    public RentDto getRent(@PathVariable Long id) {
+        Rent rent = rentService.getRent(id);
         return rentMapper.mapToRentDto(rent);
     }
 
@@ -44,19 +44,19 @@ public class RentController {
     }
 
     @DeleteMapping(value = "/rents/{id}")
-    public void deleteRent(@RequestParam Long id) {
+    public void deleteRent(@PathVariable Long id) {
         rentService.deleteRent(id);
     }
 
     @PutMapping(value = "/rents/addEquipment/{id}")
-    public void addEquipment(@RequestBody RentDto rentDto, @RequestParam Long id) {
+    public void addEquipment(@PathVariable RentDto rentDto, @RequestParam Long id) {
         Rent rent = rentMapper.mapToRent(rentDto);
         rentService.addEquipmentToRent(rent, id);
         rentService.saveRent(rent);
     }
 
     @PutMapping(value = "/rents/removeEquipment/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void removeEquipment(@RequestBody RentDto rentDto, @RequestParam Long id) {
+    public void removeEquipment(@RequestBody RentDto rentDto, @PathVariable Long id) {
         Rent rent = rentMapper.mapToRent(rentDto);
         rentService.removeEquipmentFromRent(rent, id);
         rentService.saveRent(rent);

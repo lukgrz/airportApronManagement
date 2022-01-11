@@ -25,8 +25,8 @@ public class EquipmentController {
     }
 
     @GetMapping(value = "/equipment/{id}")
-    public EquipmentDto getEquipment(@RequestParam Long id) {
-        Equipment equipment = equipmentService.getEquipment(id).get();
+    public EquipmentDto getEquipment(@PathVariable Long id) {
+        Equipment equipment = equipmentService.getEquipment(id);
         return equipmentMapper.mapToEquipmentDto(equipment);
     }
 
@@ -44,7 +44,7 @@ public class EquipmentController {
     }
 
     @DeleteMapping(value = "/equipment/{id}")
-    public void deleteEquipment(@RequestParam Long id) {
+    public void deleteEquipment(@PathVariable Long id) {
         equipmentService.deleteEquipment(id);
     }
 }

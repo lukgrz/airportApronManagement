@@ -1,6 +1,7 @@
 package com.kodilla.carrental.service;
 
 import com.kodilla.carrental.domain.Equipment;
+import com.kodilla.carrental.exception.EquipmentNotFoundException;
 import com.kodilla.carrental.repository.EquipmentDao;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class EquipmentService {
 
     private final EquipmentDao equipmentDao;
 
-    public Optional<Equipment> getEquipment(final Long id) {
-        return equipmentDao.findById(id);
+    public Equipment getEquipment(final Long id) {
+        return equipmentDao.findById(id).orElseThrow(()->new EquipmentNotFoundException(id));
     }
 
     public List<Equipment> getEquipmentList() {

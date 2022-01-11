@@ -1,11 +1,8 @@
 package com.kodilla.carrental.mapper;
 
-import com.kodilla.carrental.domain.Client;
 import com.kodilla.carrental.domain.Equipment;
 import com.kodilla.carrental.domain.Price;
-import com.kodilla.carrental.dto.ClientDto;
 import com.kodilla.carrental.dto.EquipmentDto;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

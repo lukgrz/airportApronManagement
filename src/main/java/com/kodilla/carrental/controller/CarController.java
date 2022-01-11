@@ -25,8 +25,8 @@ public class CarController {
     }
 
     @GetMapping(value = "/cars/{id}")
-    public CarDto getCar(@RequestParam Long id) {
-        Car car = carService.getCar(id).get();
+    public CarDto getCar(@PathVariable Long id) {
+        Car car = carService.getCar(id);
         return carMapper.mapToCarDto(car);
     }
 
@@ -36,14 +36,14 @@ public class CarController {
         carService.saveCar(car);
     }
 
-    @PutMapping(value = "/cars", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateCar(@RequestBody CarDto carDto) {
+    @PutMapping(value = "/cars/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Car updateCar(@RequestBody CarDto carDto, @PathVariable long id) {
         Car car = carMapper.mapToCar(carDto);
-        carService.saveCar(car);
+        return carService.updateCar(car,id);
     }
 
     @DeleteMapping(value = "/cars/{id}")
-    public void deleteCar(@RequestParam Long id) {
+    public void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }
 }

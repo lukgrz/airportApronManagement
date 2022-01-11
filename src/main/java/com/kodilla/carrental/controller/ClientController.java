@@ -26,31 +26,31 @@ public class ClientController {
     }
 
     @GetMapping(value = "/clients/{id}")
-    public ClientDto getClient(@RequestParam Long id) {
-        Client client = clientService.getClient(id).get();
+    public ClientDto getClient(@PathVariable Long id) {
+        Client client = clientService.getClient(id);
         return clientMapper.mapToClientDto(client);
     }
 
     @PostMapping(value = "/clients", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveClient(ClientDto clientDto) {
+    public Client saveClient(ClientDto clientDto) {
         Client client = clientMapper.mapToClient(clientDto);
-        clientService.saveClient(client);
+        return clientService.saveClient(client);
     }
 
-    @PutMapping(value = "/clients", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateClient(@RequestBody ClientDto clientDto) {
+    @PutMapping(value = "/clients/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Client updateClient(@RequestBody ClientDto clientDto, @PathVariable Long id) {
         Client client = clientMapper.mapToClient(clientDto);
-        clientService.saveClient(client);
+        return clientService.updateClient(client, id);
     }
 
     @DeleteMapping(value = "/clients/{id}")
-    public void deleteClient(@RequestParam Long id) {
+    public void deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
     }
 
     @GetMapping(value = "/clients/{id}/rents")
-    public List<RentDto> getAllClientRents (@RequestParam Long id) {
-        ClientDto client = clientMapper.mapToClientDto(clientService.getClient(id).get());
+    public List<RentDto> getAllClientRents (@PathVariable Long id) {
+        ClientDto client = clientMapper.mapToClientDto(clientService.getClient(id));
         return client.getRents();
     }
 }
