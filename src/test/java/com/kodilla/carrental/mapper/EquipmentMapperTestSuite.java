@@ -21,8 +21,7 @@ public class EquipmentMapperTestSuite {
     @Test
     public void mapToEquipment() {
         //Given
-        EquipmentDto equipmentDto = new EquipmentDto(1l,"Baby seat", "Seat for baby",
-                new Price(new BigDecimal(20)));
+        EquipmentDto equipmentDto = new EquipmentDto(1l,"Baby seat", "Seat for baby", BigDecimal.valueOf(20));
         //When
         Equipment equipment = equipmentMapper.mapToEquipment(equipmentDto);
         //Then
@@ -34,8 +33,7 @@ public class EquipmentMapperTestSuite {
     @Test
     public void mapToEquipmentDto() {
         //Given
-        Equipment equipment = new Equipment(1l,"Baby seat", "Seat for baby",
-                new Price(new BigDecimal(20)));
+        Equipment equipment = new Equipment(1l,"Baby seat", "Seat for baby", BigDecimal.valueOf(20));
         //When
         EquipmentDto equipmentDto = equipmentMapper.mapToEquipmentDto(equipment);
         //Then
@@ -47,10 +45,8 @@ public class EquipmentMapperTestSuite {
     @Test
     public void mapToEquipmentDtoList () {
         //Given
-        Equipment equipment1 = new Equipment(1l,"Baby seat", "Seat for baby",
-                new Price(new BigDecimal(20)));
-        Equipment equipment2 = new Equipment(2l,"Trailer", "Small trailer",
-                new Price(new BigDecimal(40)));
+        Equipment equipment1 = new Equipment(1l,"Baby seat", "Seat for baby", BigDecimal.valueOf(20));
+        Equipment equipment2 = new Equipment(2l,"Trailer", "Small trailer", BigDecimal.valueOf(40));
         List<Equipment> equipmentList = List.of(equipment1,equipment2);
         //When
         List<EquipmentDto> equipmentDtoList = equipmentMapper.mapToEquipmentDtoList(equipmentList);

@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -32,29 +33,37 @@ public class Rent {
     )
     private List<Equipment> equipmentList;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private Car car;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-    @OneToOne
-    private Price totalPrice;
+    private Currency currency = Currency.PLN;
+    private BigDecimal totalPrice;
+
+    public Rent(LocalDate rentDate, LocalDate returnDate, Car car, Client client) {
+        this.rentDate = rentDate;
+        this.returnDate = returnDate;
+        this.equipmentList = new ArrayList<>();
+        this.car = car;
+        this.client = client;
+    }
 
     public long numberOfDaysForRent() {
         return DAYS.between(rentDate, returnDate) + 1;
     }
 
     private BigDecimal calculateTotalPriceForCar() {
-        BigDecimal carStartingPrice = car.getStartingPrice().getPriceInPln();
-        BigDecimal carPricePerDays = car.getPricePerDay().getPriceInPln().multiply(BigDecimal.valueOf(numberOfDaysForRent()));
+        BigDecimal carStartingPrice = car.getStartingPrice();
+        BigDecimal carPricePerDays = car.getPricePerDay().multiply(BigDecimal.valueOf(numberOfDaysForRent()));
         return carStartingPrice.add(carPricePerDays);
     }
 
     private BigDecimal calculateTotalPriceForEquipment() {
         return equipmentList.stream()
-                .map(equipment -> equipment.getPricePerDay().getPriceInPln().multiply(BigDecimal.valueOf(numberOfDaysForRent())))
+                .map(equipment -> equipment.getPricePerDay().multiply(BigDecimal.valueOf(numberOfDaysForRent())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     }
@@ -62,8 +71,6 @@ public class Rent {
     public void calculateTotalPrice (RateService rateService) {
         Rate rate = rateService.fetchRates();
         BigDecimal totalPriceInPln = calculateTotalPriceForCar().add(calculateTotalPriceForEquipment());
-        totalPrice.setPriceInPln(totalPriceInPln);
-        totalPrice.calculatePriceInCurrency(rate);
     }
 
     public static class RentBuilder {
@@ -73,7 +80,8 @@ public class Rent {
         private List<Equipment> equipmentList;
         private Car car;
         private Client client;
-        private Price totalPrice;
+        private Currency currency;
+        private BigDecimal totalPrice;
 
         public RentBuilder id(Long id) {
             this.id = id;
@@ -105,13 +113,18 @@ public class Rent {
             return this;
         }
 
-        public RentBuilder totalPrice(Price totalPrice) {
+        public RentBuilder currency(Currency currency) {
+            this.currency = currency;
+            return this;
+        }
+
+        public RentBuilder totalPrice(BigDecimal totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
 
         public Rent build() {
-            return new Rent(id, rentDate, returnDate, equipmentList, car, client, totalPrice);
+            return new Rent(id, rentDate, returnDate, equipmentList, car, client, currency, totalPrice);
         }
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "clients")
@@ -33,5 +34,14 @@ public class Client {
     @OneToMany(
             //mappedBy = "rents",
             fetch = FetchType.EAGER)
-    private List<Rent> Rents;
+    private List<Rent> rents;
+
+    public Client(String firstName, String lastName, String address, String email, String contactNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.rents = new ArrayList<>();
+    }
 }

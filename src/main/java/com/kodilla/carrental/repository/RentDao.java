@@ -20,7 +20,4 @@ public interface RentDao extends CrudRepository<Rent, Long> {
 
     @Override
     Rent save(Rent rent);
-
-    @Override
-    void deleteById(Long id);
 }

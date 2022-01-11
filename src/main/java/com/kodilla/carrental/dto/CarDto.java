@@ -5,6 +5,8 @@ import com.kodilla.carrental.domain.Price;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 @AllArgsConstructor
 public class CarDto {
@@ -16,6 +18,6 @@ public class CarDto {
     private int seatsNumber;
     private int doorsNumber;
     private Gearbox gearbox;
-    private Price startingPrice;
-    private Price pricePerDay;
+    private BigDecimal startingPrice;
+    private BigDecimal pricePerDay;
 }

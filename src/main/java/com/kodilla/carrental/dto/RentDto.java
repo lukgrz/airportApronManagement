@@ -1,13 +1,11 @@
 package com.kodilla.carrental.dto;
 
-import com.kodilla.carrental.domain.Car;
-import com.kodilla.carrental.domain.Client;
-import com.kodilla.carrental.domain.Equipment;
-import com.kodilla.carrental.domain.Price;
+import com.kodilla.carrental.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,5 +20,6 @@ public class RentDto {
     private List<Equipment> equipmentList;
     private Car car;
     private Client client;
-    private Price totalPrice;
+    private Currency currency;
+    private BigDecimal totalPrice;
 }

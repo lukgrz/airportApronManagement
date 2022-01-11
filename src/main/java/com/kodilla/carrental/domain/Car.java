@@ -1,14 +1,9 @@
 package com.kodilla.carrental.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "cars")
 @NoArgsConstructor
@@ -18,7 +13,7 @@ import javax.persistence.OneToOne;
 public class Car {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String brand;
     private String model;
@@ -27,8 +22,19 @@ public class Car {
     private int seatsNumber;
     private int doorsNumber;
     private Gearbox gearbox;
-    @OneToOne
-    private Price startingPrice;
-    @OneToOne
-    private Price pricePerDay;
+    private BigDecimal startingPrice;
+    private BigDecimal pricePerDay;
+
+    public Car(String brand, String model, String registration, String engineCapacity, int seatsNumber, int doorsNumber,
+               Gearbox gearbox, BigDecimal startingPrice, BigDecimal pricePerDay) {
+        this.brand = brand;
+        this.model = model;
+        this.registration = registration;
+        this.engineCapacity = engineCapacity;
+        this.seatsNumber = seatsNumber;
+        this.doorsNumber = doorsNumber;
+        this.gearbox = gearbox;
+        this.startingPrice = startingPrice;
+        this.pricePerDay = pricePerDay;
+    }
 }

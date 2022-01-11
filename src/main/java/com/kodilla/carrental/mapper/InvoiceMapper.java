@@ -15,12 +15,14 @@ public class InvoiceMapper {
     private RentMapper rentMapper;
 
     public InvoiceDto mapToInvoiceDto (Invoice invoice) {
-        InvoiceDto invoiceDto = new InvoiceDto(invoice.getId(), rentMapper.mapToRentDto(invoice.getRent()));
+        InvoiceDto invoiceDto = new InvoiceDto(invoice.getId(),rentMapper.mapToRentDto(invoice.getRent()),
+                invoice.getNumber(), invoice.getDateOfIssue());
         return invoiceDto;
     }
 
     public Invoice mapToInvoice (InvoiceDto invoiceDto) {
-        Invoice invoice = new Invoice(invoiceDto.getId(), rentMapper.mapToRent(invoiceDto.getRentDto()));
+        Invoice invoice = new Invoice(invoiceDto.getId(),invoiceDto.getNumber(), invoiceDto.getDateOfIssue(),
+                rentMapper.mapToRent(invoiceDto.getRentDto()));
         return invoice;
     }
 

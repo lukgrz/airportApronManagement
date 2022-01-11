@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class RentMapperTestSuite {
     @Test
     public void testMapToRent() {
         //Given
-        RentDto rentDto = new RentDto(1l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
+        RentDto rentDto = new RentDto(1l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
         //When
         Rent rent = rentMapper.mapToRent(rentDto);
         //Then
@@ -32,8 +33,8 @@ public class RentMapperTestSuite {
     @Test
     public void testMapToRentDto() {
         //Given
-        Rent rent = new Rent(1l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
+        Rent rent = new Rent(1l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
         //When
         RentDto rentDto = rentMapper.mapToRentDto(rent);
         //Then
@@ -44,10 +45,10 @@ public class RentMapperTestSuite {
     @Test
     public void testMapToRentDtoList() {
         //Given
-        Rent rent1 = new Rent(1l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
-        Rent rent2 = new Rent(2l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
+        Rent rent1 = new Rent(1l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
+        Rent rent2 = new Rent(2l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
         List<Rent> rents = List.of(rent1, rent2);
         //When
         List<RentDto> rentDtos = rentMapper.mapToRentDtoList(rents);
@@ -72,10 +73,10 @@ public class RentMapperTestSuite {
     @Test
     public void testMapToRentList() {
         //Given
-        RentDto rent1 = new RentDto(1l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
-        RentDto rent2 = new RentDto(2l, LocalDate.of(2021, 1, 1),
-                LocalDate.of(2021, 1, 5), List.of(new Equipment()), new Car(), new Client(), new Price());
+        RentDto rent1 = new RentDto(1l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
+        RentDto rent2 = new RentDto(2l, LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 5),
+                List.of(new Equipment()), new Car(), new Client(), Currency.PLN, BigDecimal.valueOf(100));
         List<RentDto> rentDtos = List.of(rent1, rent2);
         //When
         List<Rent> rents = rentMapper.mapToRentList(rentDtos);

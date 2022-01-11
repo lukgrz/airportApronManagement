@@ -22,10 +22,8 @@ public class CarMapperTestSuite {
     @Test
     public void MapToCar() {
         //Given
-        Price startingPrice = new Price(new BigDecimal(50));
-        Price pricePerDay = new Price(new BigDecimal(30));
         CarDto carDto = new CarDto(1l, "Renault", "Megane", "SL1111", "1.5",
-                5, 4, Gearbox.MANUAL, startingPrice, pricePerDay);
+                5, 4, Gearbox.MANUAL, BigDecimal.valueOf(50), BigDecimal.valueOf(30));
         //When
         Car car = carMapper.mapToCar(carDto);
         //Then
@@ -35,10 +33,8 @@ public class CarMapperTestSuite {
     @Test
     public void MapToCarDto() {
         //Given
-        Price startingPrice = new Price(new BigDecimal(50));
-        Price pricePerDay = new Price(new BigDecimal(30));
         Car car = new Car(1l, "Renault", "Megane", "SL1111", "1.5",
-                5, 4, Gearbox.MANUAL, startingPrice, pricePerDay);
+                5, 4, Gearbox.MANUAL, BigDecimal.valueOf(50), BigDecimal.valueOf(30));
         //When
         CarDto carDto = carMapper.mapToCarDto(car);
         //Then
@@ -48,12 +44,10 @@ public class CarMapperTestSuite {
     @Test
     public void testMapToCarDtoList() {
         //Given
-        Price startingPrice = new Price(new BigDecimal(50));
-        Price pricePerDay = new Price(new BigDecimal(30));
         Car car1 = new Car(1l, "Renault", "Megane", "SL1111", "1.5",
-                5, 4, Gearbox.AUTOMATIC, startingPrice, pricePerDay);
+                5, 4, Gearbox.AUTOMATIC, BigDecimal.valueOf(50), BigDecimal.valueOf(30));
         Car car2 = new Car(1l, "Suzuki", "Swift", "SL1111", "1.0",
-                4, 3, Gearbox.MANUAL, startingPrice, pricePerDay);
+                4, 3, Gearbox.MANUAL, BigDecimal.valueOf(50), BigDecimal.valueOf(30));
         List<Car> cars = List.of(car1, car2);
         //When
         List<CarDto> carDtos = carMapper.mapToCarDtoList(cars);
