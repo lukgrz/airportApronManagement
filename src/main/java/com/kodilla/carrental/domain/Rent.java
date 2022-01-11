@@ -1,13 +1,17 @@
 package com.kodilla.carrental.domain;
 
+import com.kodilla.carrental.service.RateService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity(name = "rents")
 @NoArgsConstructor
@@ -19,10 +23,8 @@ public class Rent {
     @Id
     @GeneratedValue
     private Long id;
-
-    private Date rentDate;
-
-    private Date returnDate;
+    private LocalDate rentDate;
+    private LocalDate returnDate;
 
     @OneToMany(
             targetEntity = Equipment.class,
@@ -37,14 +39,37 @@ public class Rent {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-
     @OneToOne
     private Price totalPrice;
 
+    public long numberOfDaysForRent() {
+        return DAYS.between(rentDate, returnDate);
+    }
+
+    private BigDecimal calculateTotalPriceForCar() {
+        BigDecimal carStartingPrice = car.getStartingPrice().getPriceInPln();
+        BigDecimal carPricePerDays = car.getPricePerDay().getPriceInPln().multiply(BigDecimal.valueOf(numberOfDaysForRent()));
+        return carStartingPrice.add(carPricePerDays);
+    }
+
+    private BigDecimal calculateTotalPriceForEquipment() {
+        return equipmentList.stream()
+                .map(equipment -> equipment.getPricePerDay().getPriceInPln())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    }
+
+    public void calculateTotalPrice (RateService rateService) {
+        Rate rate = rateService.fetchRates();
+        BigDecimal totalPriceInPln = calculateTotalPriceForCar().add(calculateTotalPriceForEquipment());
+        totalPrice.setPriceInPln(totalPriceInPln);
+        totalPrice.calculatePriceInCurrency(rate);
+    }
+
     public static class RentBuilder {
         private Long id;
-        private Date rentDate;
-        private Date returnDate;
+        private LocalDate rentDate;
+        private LocalDate returnDate;
         private List<Equipment> equipmentList;
         private Car car;
         private Client client;
@@ -55,12 +80,12 @@ public class Rent {
             return this;
         }
 
-        public RentBuilder rentDate(Date rentDate) {
+        public RentBuilder rentDate(LocalDate rentDate) {
             this.rentDate = rentDate;
             return this;
         }
 
-        public RentBuilder returnDate(Date returnDate) {
+        public RentBuilder returnDate(LocalDate returnDate) {
             this.returnDate = returnDate;
             return this;
         }
@@ -86,7 +111,7 @@ public class Rent {
         }
 
         public Rent build() {
-            return new Rent(id,rentDate,returnDate,equipmentList,car,client,totalPrice);
+            return new Rent(id, rentDate, returnDate, equipmentList, car, client, totalPrice);
         }
     }
 }

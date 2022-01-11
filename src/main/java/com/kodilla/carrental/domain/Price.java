@@ -2,16 +2,19 @@ package com.kodilla.carrental.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SecondaryTable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@Setter
 public class Price {
 
     @Id
@@ -20,7 +23,6 @@ public class Price {
     private Currency currency = Currency.PLN;
     private BigDecimal priceInPln;
     private BigDecimal priceInCurrency;
-    private LocalDate localDate;
 
     public Price(BigDecimal priceInPln) {
         this.priceInPln = priceInPln;

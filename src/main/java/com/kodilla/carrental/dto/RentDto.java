@@ -1,10 +1,13 @@
 package com.kodilla.carrental.dto;
 
-import com.kodilla.carrental.domain.*;
+import com.kodilla.carrental.domain.Car;
+import com.kodilla.carrental.domain.Client;
+import com.kodilla.carrental.domain.Equipment;
+import com.kodilla.carrental.domain.Price;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -12,8 +15,8 @@ import java.util.List;
 public class RentDto {
 
     private Long id;
-    private Date rentDate;
-    private Date returnDate;
+    private LocalDate rentDate;
+    private LocalDate returnDate;
     private List<Equipment> equipmentList;
     private Car car;
     private Client client;
