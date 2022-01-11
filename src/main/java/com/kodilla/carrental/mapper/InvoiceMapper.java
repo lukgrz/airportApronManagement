@@ -2,6 +2,7 @@ package com.kodilla.carrental.mapper;
 
 import com.kodilla.carrental.domain.Invoice;
 import com.kodilla.carrental.dto.InvoiceDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class InvoiceMapper {
 
+    @Autowired
     private RentMapper rentMapper;
 
     public InvoiceDto mapToInvoiceDto (Invoice invoice) {
