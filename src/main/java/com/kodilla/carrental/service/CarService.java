@@ -17,7 +17,7 @@ public class CarService {
     private final CarDao carDao;
 
     public Car getCar(final long id) {
-        return carDao.findById(id).orElseThrow(()->new CarNotFoundException(id));
+        return carDao.findById(id).orElseThrow(()-> new CarNotFoundException(id));
     }
 
     public List<Car> getCars() {

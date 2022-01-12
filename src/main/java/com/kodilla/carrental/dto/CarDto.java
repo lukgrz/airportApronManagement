@@ -1,7 +1,6 @@
 package com.kodilla.carrental.dto;
 
 import com.kodilla.carrental.domain.Gearbox;
-import com.kodilla.carrental.domain.Price;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

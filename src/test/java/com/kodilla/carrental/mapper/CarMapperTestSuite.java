@@ -2,7 +2,6 @@ package com.kodilla.carrental.mapper;
 
 import com.kodilla.carrental.domain.Car;
 import com.kodilla.carrental.domain.Gearbox;
-import com.kodilla.carrental.domain.Price;
 import com.kodilla.carrental.dto.CarDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

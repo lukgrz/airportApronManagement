@@ -31,7 +31,7 @@ public class RentService {
     }
 
     public Rent saveRent(final Rent rent) {
-        calculateTotalPrice(rent);
+        //calculateTotalPrice(rent);
         return rentDao.save(rent);
     }
 
