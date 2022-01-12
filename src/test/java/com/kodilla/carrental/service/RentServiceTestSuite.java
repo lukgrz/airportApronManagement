@@ -1,9 +1,6 @@
 package com.kodilla.carrental.service;
 
-import com.kodilla.carrental.domain.Car;
-import com.kodilla.carrental.domain.Client;
-import com.kodilla.carrental.domain.Gearbox;
-import com.kodilla.carrental.domain.Rent;
+import com.kodilla.carrental.domain.*;
 import com.kodilla.carrental.exception.RentNotFoundException;
 import com.kodilla.carrental.repository.CarDao;
 import com.kodilla.carrental.repository.ClientDao;
@@ -128,5 +125,63 @@ public class RentServiceTestSuite {
         Rent theRent = rentService.saveRent(rent);
         //Then
         assertEquals(rent, theRent);
+    }
+
+    @Test
+    public void testAddEquipmentToRent() {
+        //Given
+        Car car = new Car("Kangoo", "Renault", "SL1111", "1.4", 5,
+                5, Gearbox.MANUAL, BigDecimal.valueOf(40), BigDecimal.valueOf(30));
+        Client client = new Client("John", "Malkovich", "Katowice", "JM@gamil.com",
+                "123456789");
+        Equipment equipment = new Equipment("Baby seat", "Seat fo baby", BigDecimal.valueOf(10));
+        Rent rent = new Rent.RentBuilder()
+                .rentDate(LocalDate.of(2021, 1, 1))
+                .returnDate(LocalDate.of(2021, 1, 5))
+                .car(car)
+                .client(client)
+                .build();
+        Long equipmentId = 1l;
+        Long rentId = 2l;
+
+        when(equipmentService.getEquipment(equipmentId)).thenReturn(equipment);
+        when(rentDao.findById(rentId)).thenReturn(Optional.of(rent));
+        when(rentDao.save(rent)).thenReturn(rent);
+
+        //When
+        Rent theRent = rentService.addEquipmentToRent(rentId, equipmentId);
+        //Then
+        assertEquals("Baby seat", theRent.getEquipmentList().get(0).getName());
+    }
+
+
+    @Test
+    public void testRemoveEquipmentFromRent() {
+        //Given
+        Car car = new Car("Kangoo", "Renault", "SL1111", "1.4", 5,
+                5, Gearbox.MANUAL, BigDecimal.valueOf(40), BigDecimal.valueOf(30));
+        Client client = new Client("John", "Malkovich", "Katowice", "JM@gamil.com",
+                "123456789");
+        Equipment equipment1 = new Equipment("Baby seat", "Seat fo baby", BigDecimal.valueOf(10));
+        Equipment equipment2 = new Equipment("Trailer", "BigTrailer", BigDecimal.valueOf(10));
+        Rent rent = new Rent.RentBuilder()
+                .rentDate(LocalDate.of(2021, 1, 1))
+                .returnDate(LocalDate.of(2021, 1, 5))
+                .car(car)
+                .equipment(equipment1)
+                .equipment(equipment2)
+                .client(client)
+                .build();
+        Long equipmentId = 1l;
+        Long rentId = 2l;
+
+        when(equipmentService.getEquipment(equipmentId)).thenReturn(equipment2);
+        when(rentDao.findById(rentId)).thenReturn(Optional.of(rent));
+        when(rentDao.save(rent)).thenReturn(rent);
+
+        //When
+        Rent theRent = rentService.removeEquipmentFromRent(rentId, equipmentId);
+        //Then
+        assertEquals(1, theRent.getEquipmentList().size());
     }
 }

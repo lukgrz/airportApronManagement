@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EquipmentServiceTestSuite {
@@ -85,5 +85,15 @@ public class EquipmentServiceTestSuite {
         Equipment theEquipment = equipmentService.saveEquipment(equipment);
         //Then
         assertEquals(equipment, theEquipment);
+    }
+
+    @Test
+    public void testDeleteEquipment() {
+        //Given
+        Long id = 1l;
+        //When
+        equipmentService.deleteEquipment(id);
+        //Then
+        verify(equipmentDao, times(1)).deleteById(id);
     }
 }

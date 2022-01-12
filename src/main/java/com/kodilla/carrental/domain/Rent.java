@@ -77,7 +77,7 @@ public class Rent {
         private Long id;
         private LocalDate rentDate;
         private LocalDate returnDate;
-        private List<Equipment> equipmentList;
+        private List<Equipment> equipmentList = new ArrayList<>();
         private Car car;
         private Client client;
         private Currency currency;

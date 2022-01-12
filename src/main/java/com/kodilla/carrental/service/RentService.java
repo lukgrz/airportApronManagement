@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,12 +25,12 @@ public class RentService {
         return rentDao.findAll();
     }
 
-    private void calculateTotalPrice(final Rent rent) {
+    private void calculateTotalPrice(final Long id) {
+        Rent rent = getRent(id);
         rent.calculateTotalPrice(rateService);
     }
 
     public Rent saveRent(final Rent rent) {
-        //calculateTotalPrice(rent);
         return rentDao.save(rent);
     }
 
@@ -39,14 +38,16 @@ public class RentService {
         rentDao.deleteById(id);
     }
 
-    public Rent addEquipmentToRent(final Rent rent, final Long equipmentId) {
+    public Rent addEquipmentToRent(final Long rentId, final Long equipmentId) {
+        Rent rent = getRent(rentId);
         Equipment equipment = equipmentService.getEquipment(equipmentId);
         rent.getEquipmentList().add(equipment);
         rentDao.save(rent);
         return rent;
     }
 
-    public Rent removeEquipmentFromRent(final Rent rent, final Long equipmentId) {
+    public Rent removeEquipmentFromRent(final Long rentId, final Long equipmentId) {
+        Rent rent = getRent(rentId);
         Equipment equipment = equipmentService.getEquipment(equipmentId);
         rent.getEquipmentList().remove(equipment);
         rentDao.save(rent);
